@@ -1,0 +1,60 @@
+[18:53:06.842] INFO (2968): [interview-session] Starting interview session
+    group: "interview-session"
+    fileName: "Maratas_Kentward_Resume.pdf"
+    bytes: 124146
+    environment: "development"
+[18:53:07.486] DEBUG (2968): [interview-session] Resume parsed
+    group: "interview-session"
+    characters: 4178
+    environment: "development"
+[18:53:09.196] DEBUG (2968): [interview-session] Profile extracted
+    group: "interview-session"
+    targetRole: "Lead Full-Stack Software Engineer"
+    skills: 31
+    environment: "development"
+
+Questions:  [
+  {
+    id: 'system-architecture-nest-vs-aspnet',
+    topic: 'System Architecture',
+    question: 'When deciding between Nest.js and ASP.NET for building a new backend service in your stack, what key factors influence your choice?'
+  },
+  {
+    id: 'technical-tradeoffs-postgresql-mongodb',
+    topic: 'Database Management',
+    question: 'Can you walk me through a specific scenario where you would choose PostgreSQL over MongoDB for a full-stack project?'
+  },
+  {
+    id: 'concurrency-golang-node',
+    topic: 'Concurrency',
+    question: 'How do you approach handling high-concurrency tasks in Golang compared to asynchronous programming in Node.js?'
+  },
+  {
+    id: 'cloud-infrastructure-aws-azure',
+    topic: 'Cloud Infrastructure',
+    question: 'Which cloud provider do you feel most comfortable deploying containerized microservices to, and what has been your biggest challenge with it?'
+  },
+  {
+    id: 'state-management-nextjs-react',
+    topic: 'Frontend Engineering',
+    question: 'How do you manage complex application state and data fetching when building highly dynamic interfaces with Next.js?'
+  },
+  {
+    id: 'testing-strategy-playwright-jest',
+    topic: 'Quality Assurance',
+    question: 'What is your philosophy on balancing unit tests with end-to-end tests using tools like Playwright and Jest?'
+  },
+  {
+    id: 'leadership-fast-paced-delivery',
+    topic: 'Leadership and Delivery',
+    question: 'As someone stepping into a lead role with one year of intensive experience, how do you handle technical disagreements with senior team members?'
+  }
+]
+
+ POST /api/session 201 in 6.7s (next.js: 1584ms, application-code: 5.2s)
+[18:53:11.362] INFO (2968): [interview-session] Session ready
+    group: "interview-session"
+    sessionId: "c8a80754-0ee5-4196-be47-2fc317717e91"
+    questions: 7
+    environment: "development"
+ GET /interview-session?id=c8a80754-0ee5-4196-be47-2fc317717e91 200 in 141ms (next.js: 65ms, application-code: 76ms)
