@@ -2,7 +2,7 @@ export const ACCEPTED_EXTENSIONS = [".pdf", ".docx"];
 
 export const ACCEPT_ATTR = ".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 
-export const API_URL = process.env.API_URL ?? "http://localhost:3001";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:30101";
 
 export const WS_URL = API_URL.replace(/^http/, "ws") + "/ws/interview";
 
