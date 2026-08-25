@@ -104,6 +104,8 @@ export function InterviewRoom({ sessionId }: { sessionId: string }) {
     micState,
     needsGesture,
     confirmReady,
+    repeatQuestion,
+    canRepeat,
     finishAnswer,
     resumeAudio,
     speechSupported,
@@ -203,6 +205,31 @@ export function InterviewRoom({ sessionId }: { sessionId: string }) {
             className="inline-flex h-14 items-center justify-center rounded-full bg-zinc-200 px-6 text-base font-medium text-zinc-800 transition-colors hover:bg-zinc-300 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
           >
             {"I'm Ready"}
+          </button>
+
+          <button
+            type="button"
+            onClick={repeatQuestion}
+            disabled={!canRepeat}
+            title="Play the question again"
+            className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-zinc-200 px-6 text-base font-medium text-zinc-800 transition-colors hover:bg-zinc-300 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-5 w-5"
+            >
+              <path d="M3 12a9 9 0 0 1 15.3-6.4L21 8" />
+              <path d="M21 3v5h-5" />
+              <path d="M21 12a9 9 0 0 1-15.3 6.4L3 16" />
+              <path d="M3 21v-5h5" />
+            </svg>
+            Repeat Question
           </button>
 
           <button

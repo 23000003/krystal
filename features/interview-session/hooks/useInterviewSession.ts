@@ -94,6 +94,8 @@ export function useInterviewSession(sessionId: string) {
   /** Questions received from the server, in arrival order. */
   const queueRef = useRef<PendingQuestion[]>([]);
   const playedRef = useRef(0);
+  /** The current question's object URL, kept so a replay reuses it. */
+  const currentAudioUrlRef = useRef<string | null>(null);
   /** Answers submitted, which is what decides when the interview is over. */
   const submittedRef = useRef(0);
   const totalRef = useRef(0);
@@ -270,8 +272,10 @@ export function useInterviewSession(sessionId: string) {
     if (next.audio) {
       const url = base64AudioToUrl(next.audio, next.audioMimeType);
       objectUrlsRef.current.push(url);
+      currentAudioUrlRef.current = url;
       await play(url);
     } else {
+      currentAudioUrlRef.current = null;
       toastr.warning("Audio unavailable for this question, showing the text.");
     }
 
@@ -337,6 +341,26 @@ export function useInterviewSession(sessionId: string) {
 
     await playNextQuestion();
   }, [current, playNextQuestion, send, setPhaseSafely, stopRecording]);
+
+  /**
+   * Plays the current question again. Recording is paused for the duration so
+   * Krystal's own voice never lands in the candidate's answer.
+   */
+  const repeatQuestion = useCallback(async () => {
+    const url = currentAudioUrlRef.current;
+    if (phaseRef.current !== "answering" || !url) return;
+
+    const recorder = recorderRef.current;
+    if (recorder?.state === "recording") recorder.pause();
+    setMicState("idle");
+    setPhaseSafely("question");
+
+    await play(url);
+
+    if (recorderRef.current?.state === "paused") recorderRef.current.resume();
+    setMicState("live");
+    setPhaseSafely("answering");
+  }, [play, setPhaseSafely]);
 
   const beginQuestions = useCallback(async () => {
     recognitionRef.current?.stop();
@@ -533,6 +557,9 @@ export function useInterviewSession(sessionId: string) {
     micState,
     needsGesture,
     confirmReady,
+    repeatQuestion,
+    /** False while nothing is playable — no question yet, or TTS failed. */
+    canRepeat: phase === "answering" && Boolean(current?.audio),
     finishAnswer,
     resumeAudio,
     speechSupported: Boolean(getSpeechRecognition()),
