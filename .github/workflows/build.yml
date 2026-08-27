@@ -8,8 +8,10 @@ on:
 
 jobs:
   build-api:
-
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api
 
     strategy:
       matrix:
@@ -22,13 +24,16 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: cd api
+        cache-dependency-path: api/package-lock.json
     - run: npm ci
-    - run: npm run build 
+    - run: npm run build
     - run: npm test --if-present
 
   build-web:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
 
     strategy:
       matrix:
@@ -41,7 +46,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: cd web
+        cache-dependency-path: web/package-lock.json
     - run: npm ci
-    - run: npm run build 
+    - run: npm run build
     - run: npm test --if-present
