@@ -8,7 +8,7 @@ import {
 import type { IQuestionGenerator } from './interface/question-generator.interface';
 import { GeminiClient } from '../clients/gen-ai.client';
 import { buildQuestionBankQuery } from './query-builder';
-import { MAXIMUM_NUMBER_OF_QUESTIONS, MINIMUM_NUMBER_OF_QUESTIONS } from 'src/config/constants';
+import { MAXIMUM_NUMBER_OF_QUESTIONS, MINIMUM_NUMBER_OF_QUESTIONS } from '../../../config/constants';
 
 const responseSchema: Schema = {
   type: Type.ARRAY,
